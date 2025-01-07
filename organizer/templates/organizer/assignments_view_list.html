@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+	{% include 'organizer/submit.html' %}	
+	<h2> Assignments </h2>
+	<div>
+		<div class="row">
+			<div>
+				<a href="{% url 'organizer:View_Assignments_Calendar' month=cur_month year=cur_year %}">
+					<button class="List">
+						Calendar View
+					</button>
+				</a>
+			</div>
+			<div>
+				<button type="button" data-bs-toggle="modal" data-bs-target="#new_assignment">New Assignment</button>
+			</div>
+		</div>
+		
+	</span>
+		<table class="table">
+			<tr>
+				<th scope="col">Assignment Title</th>
+				<!--<th scope="col"> Class </th>-->
+				<!--<th scope="col"> Status </th>-->
+				<th scope="col">Deadline</th>
+				<th scope="col">Status</th>
+				<th scope="col">Options</th>
+				<!--<th scope="col"> Time until due </th>-->
+			</tr>
+			
+			{% for value in assignments %}
+			<tr>
+				<td>
+					{{ value.title }}
+				</td>
+				<td>
+					{{ value.deadline }}
+				</td>
+				<td>
+					{{ value.assignment_status }}
+				</td>
+				<td>
+					<div class="dropdown">
+						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+							
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+							{% if value.assignment_status != "To do" %}
+							<li>
+								<a class="dropdown-item" href="{% url 'organizer:update assignment status' assignment_id=value.pk status=1 %}">
+									Mark as To Do
+								</a>
+							</li>
+							{% endif %}
+							{% if value.assignment_status != "In Progress" %}
+							<li>
+								<a class="dropdown-item" href="{% url 'organizer:update assignment status' assignment_id=value.pk status=2 %}">
+									Mark as In Progress
+								</a>
+							</li>
+							{% endif %}
+							{% if value.assignment_status != "Completed" %}
+							<li>
+								<a class="dropdown-item" href="{% url 'organizer:update assignment status' assignment_id=value.pk status=3 %}">
+									Mark as Complete
+								</a>
+							</li>
+							{% endif %}
+							<li>
+								<a class="dropdown-item" href="{% url 'organizer:delete assignment' assignment_id=value.pk %}">
+									Delete Assignment
+								</a>
+							</li>
+						</ul>
+					</div>
+				</td>
+			</tr>
+			{% endfor %}
+		</table>
+	</div>
+{% endblock %}

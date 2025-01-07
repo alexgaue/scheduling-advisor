@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+  <h2>Note</h2>
+<table class="table mb-0">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for note in notes %}
+        <tr>
+
+          <td>{{ note.title }}</td>
+
+          <td>
+
+               <td>{{ note.pdf }}</td>
+
+          <td>
+            <a href="{{ note.pdf.url }}" class="btn btn-primary btn-sm" target="_blank">
+              Download PDF
+            </a>
+          </td>
+
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+{% endblock %}
+

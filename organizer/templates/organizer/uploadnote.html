@@ -1,0 +1,29 @@
+{% block content %}
+<div class="modal fade" id="new_notes">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2>Upload Notes</h2>
+			</div>
+			
+			<div class="modal-body">
+				After uploading, your notes will be visible on the page for the class you upload them to.<br>
+				<form id="new_notes_form" action="{% url 'organizer:Upload_note' %}" method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+					{{form.as_p}}
+				</form>
+			</div>
+			
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+					Close
+				</button>
+				<button type="submit" form="new_notes_form" class="btn btn-primary">
+					Upload
+				</button>
+			</div>
+		</div>
+		
+	</div>
+</div>
+{% endblock %}

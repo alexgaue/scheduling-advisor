@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+
+{% load bootstrap5 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+{% block content%}
+<br>
+<h3>Join A Class</h3>
+	<!--<header class="border-bottom bg-dark text-center text-white">-->	
+        <form method="GET">
+            <label>
+                Enter a course number (example: CS 3240) or just a department abbreviation (example: CS) to find every class of that department.
+            </label>
+            <input type="text" name="cnumber" value='{{ request.GET.cnumber }}'>
+            <input class="button" type="submit" value="Search for a class">
+        </form>
+        {% if query %}
+		<div>
+			<table class="table">
+				<tr>
+					<th scope="col">Course Department</th>
+					<th scope="col">Course Number</th>
+                    <th scope="col">Section Number</th>
+                    <th scope="col">Course Name</th>
+                    <th scope="col">Professor Name</th>
+                    <th scope="col">Time slot</th>
+				</tr>
+                {% for course in courses %}
+				<tr>
+					<td>
+						{{ course.0 }}
+					</td>
+					<td>
+						{{ course.1 }}
+					</td>
+                    <td>
+                        {{ course.2 }}
+                    </td>
+                    <td>
+                        {{ course.4 }}	
+                    </td>
+                    <td>
+                        {{ course.6 }}
+                    </td>
+                    <td>
+                        {% if course.9 == course.10 %}
+                        TBA
+                        {% else %}
+                        {{ course.9 }} - {{ course.10 }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        <form action="{% url 'organizer:join class' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="cid" value="{{ course.3 }}">
+                            <input type="hidden" name="cname" value="{{ course.4 }}">
+                            <input type="submit" value="Join Class">
+                        </form>
+				</tr>
+                {% empty %}
+                <h2> Sorry, that query didn't match any classes. </h2>
+                {% endfor %}
+			</table>
+            {% endif %}
+		</div>
+{% endblock %}

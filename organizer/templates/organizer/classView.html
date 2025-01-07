@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+
+{% load bootstrap5 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+{% block content %}
+<br>
+	<!--<header class="border-bottom bg-dark text-center text-white">-->	
+		<div>
+            <table class = "table">
+				<tr>
+					<th scope="col">Course Department</th>
+					<th scope="col">Course Number</th>
+                    <th scope="col">Section Number</th>
+                    <th scope="col">Course Name</th>
+                    <th scope="col">Professor Name</th>
+                    <th scope="col">Time slot</th>
+				</tr>
+				<tr>
+					<td>
+						{{ course.0 }}
+					</td>
+					<td>
+						{{ course.1 }}
+					</td>
+                    <td>
+                        {{ course.2 }}
+                    </td>
+                    <td>
+                        {{ course.4 }}
+                    </td>
+                    <td>
+                        {{ course.6 }}
+                    </td>
+                    <td>
+						{% if course.9 == course.10 %}
+						TBA
+						{% else %}
+						{{ course.9 }} - {{ course.10 }}
+						{% endif %}
+                    </td>
+				</tr>
+			</table>
+
+            <h2> Students in class: </h2>
+            {% for student in students %}
+            <p> 
+              {{ student.first_name|capfirst }} {{ student.last_name|capfirst }}
+            </p>
+
+            {% empty %}
+            <p> 
+              No students have joined this class yet.
+            </p>
+            {% endfor %}
+
+            <h2> Notes Uploaded for this class:</h2>
+
+            <table class="table mb-0">
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for note in notes %}
+        <tr>
+
+          <td>{{ note.title }}</td>
+
+          <td>
+            <a href="{{ note.pdf.url }}" class="btn btn-primary btn-sm" target="_blank">
+              Download PDF
+            </a>
+          </td>
+
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+		</div>
+{% endblock %}

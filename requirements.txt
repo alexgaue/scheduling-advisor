@@ -1,0 +1,39 @@
+# Bootstrap
+django-bootstrap-v5
+
+# Django is needed to run Django
+Django
+
+# gunicorn is needed by Heroku to launch the web server
+gunicorn
+
+# django-heroku is ONLY needed by Heroku for their internal process
+# if you have errors with psycopg2 or django-heroku, use the code at the bottom of settings.py to avoid the error
+# the outcome of using this bypass is that locally you will need to use either SQLite or connect to Heroku's Postgres DB
+django-heroku
+
+# django-allauth is needed for setting up google login
+django-allauth
+
+# django-environ used for environmental variables
+django-environ
+
+# oauth_app is needed to allow oauth to run
+oauthlib
+
+# requests is needed to query the API
+requests
+
+google
+google-api-core==2.2.2
+google-api-python-client==2.29.0
+google-auth==2.3.3
+google-auth-httplib2==0.1.0
+google-auth-oauthlib==0.4.6
+googleapis-common-protos==1.53.0
+
+boto3
+
+Django-storages
+mock
+whitenoise

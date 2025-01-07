@@ -1,0 +1,62 @@
+{% block imports %}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<body>
+<script>
+    // This code activates flatpickr on fields with the 'datetimefield' class when the document has loaded
+    // Source: https://stackoverflow.com/questions/60128838/django-datetimeinput-type-datetime-local-not-saving-to-database
+    window.addEventListener("DOMContentLoaded", function () {
+        flatpickr(".datetimefield", {
+            enableTime: true,
+            enableSeconds: true,
+            dateFormat: "Y-m-d H:i:S",
+        });
+    });
+</script>	
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="modal fade" id="new_assignment">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2>Create Assignment</h2>
+			</div>
+			<div class="modal-body">
+				<form class="form" id="new_assignment_form" action="{% url 'organizer:new assignment' %}" method="post">
+					{% csrf_token %}
+					{{ form.as_p }}
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+					Close
+				</button>
+				<button type="submit" form="new_assignment_form" class="btn btn-primary">
+					Submit
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="import_assignment">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2>Import Assignment</h2>
+			</div>
+			<div class="modal-body">
+				<!--form action="{% url 'organizer:new assignment' %}" method="post" class="form">
+				</form-->
+			</div>
+		</div>
+	</div>
+</div>
+	
+{% endblock %}

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+
+{% load bootstrap5 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+{% block content %}
+
+	<br>
+		<h3> My Classes</h3>
+	<br>
+	
+	<div>	
+		<a class="btn btn-secondary" href="{% url 'organizer:View_Class_List' %}">
+			Join Class
+		</a>
+	</div>
+	
+	<div>	
+		<div>
+			<button class="btn btn-secondary" type="button" data-bs-toggle="modal" data-bs-target="#new_notes">
+				Upload Notes
+			</button>
+		</div>
+		{% include 'organizer/uploadnote.html' %}	
+	</div>
+	
+	<div>
+		<table class="table">
+			<tr>
+				<th scope="col">Course Department</th>
+				<th scope="col">Course Number</th>
+				<th scope="col">Section Number</th>
+				<th scope="col">Course Name</th>
+				<th scope="col">Professor Name</th>
+				<th scope="col">Time slot</th>
+			</tr>
+			{% for course in courses %}
+			<tr>
+				<td>
+					{{ course.0 }}
+				</td>
+				<td>
+					{{ course.1 }}
+				</td>
+				<td>
+					{{ course.2 }}
+				</td>
+				<td>
+					<a href="{% url 'organizer:View_Class_Details' course.3 %}">
+						{{ course.4 }}
+					</a>
+				</td>
+				<td>
+					{{ course.6 }}
+				</td>
+				<td>
+					{{ course.9 }} - {{ course.10 }}
+				</td>
+				<td>
+					<div class="dropdown">
+						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton{{ course.3 }}" data-bs-toggle="dropdown" aria-expanded="false" >
+			
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ course.3 }}">	
+							<li>
+								<a class="dropdown-item" href="{% url 'organizer:delete class' course.3 %}">
+									Unenroll
+								</a>
+							</li>
+						</ul>
+					</div>
+				</td>
+			</tr>
+			{% empty %}
+			You haven't joined any classes yet.
+			{% endfor %}
+		</table>
+	</div>
+{% endblock %}

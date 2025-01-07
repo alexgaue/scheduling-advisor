@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load socialaccount %}
+
+{% block content %}
+<br>
+{% if user.is_authenticated %}
+<h2>Welcome, {{ user.username }}!</h2>
+<p>
+This serves as a simple application for UVA students to track assignment deadlines, 
+as well as joining classes to upload notes and view the notes other students have uploaded.
+<br>
+Under Assignments, you'll find the tools to add an assignment and specify its deadline,
+as well as see your assignments on either a calendar or in a list view.
+Under Classes, you'll be able to search for any class here at UVA and join it,
+upload notes (in PDF format) for the classes you've joined, or view a class 
+to see who else has joined and what's been uploaded.
+</p>
+
+{% else %}
+<h2>Welcome!</h2>
+<p>
+This serves as a simple application for UVA students to track assignment deadlines, 
+as well as joining classes to upload notes and view the notes other students have uploaded.
+<br>
+To get started, just log in and go to one of the links up above.
+Under Assignments, you'll find the tools to add an assignment and specify its deadline,
+as well as see your assignments on either a calendar or in a list view.
+Under Classes, you'll be able to search for any class here at UVA and join it,
+upload notes (in PDF format) for the classes you've joined, or view a class 
+to see who else has joined and what's been uploaded.
+</p>
+<a class="btn btn-outline-secondary" href="{% provider_login_url 'google' %}">Log in to get started</a>
+{% endif %}
+
+{% endblock %}

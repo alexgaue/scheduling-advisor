@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block imports %}
+	<link rel="stylesheet" href="{% static 'organizer/calendar_style.css' %}"/>
+{% endblock %}
+
+{% block content %}
+	{% include 'organizer/submit.html' %}
+	<h2> Assignments </h2>
+	<div>
+		<div>
+			<a href="{% url 'organizer:View_Assignments_List' %}">
+				<button class="List">
+					List View
+				</button>
+			</a>
+		</div>
+		<div>
+			<div>
+				<button type="button" data-bs-toggle="modal" data-bs-target="#new_assignment">
+					New Assignment
+				</button>
+			</div>
+		</div>
+		<style type = "text/css">
+			.calendar {
+			width: 98%;
+			margin: auto;
+			font-size: 13px;
+			}
+
+			.calendar tr, .calendar td {
+			border: 1px solid black;
+			}
+
+			.calendar th {
+			padding: 10px;
+			text-align: center;
+			font-size: 18px;
+			}
+
+			.calendar td {
+			width: 200px;
+			height: 150px;
+			padding: 20px 0px 0px 5px;
+			}
+
+			.month {
+			font-size: 25px;
+			}
+
+			.date {
+			font-size: 16px;
+			}
+		</style>
+		{{ calendar|safe }}
+	</div>
+{% endblock %}
